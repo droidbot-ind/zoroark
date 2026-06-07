@@ -97,7 +97,7 @@ npm run dev                # http://localhost:5173
 
 ## Credits
 
-This project was built collaboratively with **Claude (Anthropic)**, an AI assistant, which wrote the majority of the code across multiple sessions — from initial scaffold through theming, deployment config, and feature implementation.
+This project was built with the assistance of **opencode** (powered by deepseek-v4-flash-free), an AI coding tool that wrote the majority of the code across multiple sessions — from initial scaffold through theming, deployment config, and feature implementation.
 
 **Pokémon is © Nintendo / The Pokémon Company.** This is a fan project for educational purposes only.
 
