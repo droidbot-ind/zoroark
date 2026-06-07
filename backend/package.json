@@ -1,7 +1,7 @@
 {
   "name": "movie-night-backend",
   "version": "1.0.0",
-  "description": "Express + Prisma backend for Movie Night",
+  "description": "Express + Prisma backend for Zoroark",
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",

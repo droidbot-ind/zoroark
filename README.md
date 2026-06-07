@@ -1,4 +1,4 @@
-# Movie Night
+# Zoroark
 
 A production-quality movie explorer and watchlist platform inspired by **Netflix** + **Letterboxd**.
 

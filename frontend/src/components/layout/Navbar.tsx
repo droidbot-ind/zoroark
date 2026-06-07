@@ -12,8 +12,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { UserAvatar } from "@/components/common/UserAvatar";
 import { Input } from "@/components/ui/input";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { ThemeCustomizer } from "@/theme/ThemeCustomizer";
 import { useAuthStore } from "@/stores/authStore";
 import { cn } from "@/lib/cn";
+import ShinyText from "@/components/ShinyText";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -41,11 +44,19 @@ export const Navbar: React.FC = () => {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/40 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center gap-3">
-        <Link to="/" className="flex items-center gap-2 font-display text-2xl tracking-wide">
+        <Link to="/" className="flex items-center gap-2 font-display text-2xl tracking-wide shrink-0">
           <span className="flex h-8 w-8 items-center justify-center rounded bg-primary text-primary-foreground">
             <Film className="h-4 w-4" />
           </span>
-          <span className="hidden sm:inline">MOVIE NIGHT</span>
+          <ShinyText
+            text="ZOROARK"
+            color="#f5f5f5"
+            shineColor="#fbbf24"
+            spread={160}
+            speed={4}
+            delay={2}
+            className="hidden sm:inline-block"
+          />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-1 ml-4">
@@ -82,7 +93,9 @@ export const Navbar: React.FC = () => {
           />
         </form>
 
-        <div className="ml-auto md:ml-2 flex items-center gap-2">
+        <div className="ml-auto md:ml-2 flex items-center gap-1">
+          <ThemeCustomizer />
+          <ThemeToggle />
           {isAuthenticated && user ? (
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>

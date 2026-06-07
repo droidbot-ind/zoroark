@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { Film } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { ThemeCustomizer } from "@/theme/ThemeCustomizer";
 
 const exploreLinks = [
   { to: "/trending", label: "Trending" },
@@ -24,12 +26,16 @@ export const Footer: React.FC = () => (
           <span className="flex h-7 w-7 items-center justify-center rounded bg-primary text-primary-foreground">
             <Film className="h-3.5 w-3.5" />
           </span>
-          MOVIE NIGHT
+          ZOROARK
         </Link>
         <p className="mt-3 text-sm text-muted-foreground max-w-xs">
           Discover, track, and review the films and TV that move you. Data
           provided by TMDB.
         </p>
+        <div className="mt-4 flex items-center gap-2">
+          <ThemeToggle />
+          <ThemeCustomizer />
+        </div>
       </div>
 
       <div className="grid grid-cols-2 gap-6 md:col-span-2">
@@ -67,7 +73,7 @@ export const Footer: React.FC = () => (
     </div>
     <div className="border-t border-border/40">
       <div className="container py-4 text-xs text-muted-foreground flex flex-wrap items-center justify-between gap-2">
-        <span>© {new Date().getFullYear()} Movie Night. All rights reserved.</span>
+        <span>© {new Date().getFullYear()} Zoroark. All rights reserved.</span>
         <span>
           This product uses the TMDB API but is not endorsed or certified by TMDB.
         </span>

@@ -47,19 +47,6 @@ export default {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
         },
-        brand: {
-          DEFAULT: "#e50914",
-          50: "#fde7e9",
-          100: "#fbcfd2",
-          200: "#f59fa6",
-          300: "#ef6f79",
-          400: "#e93f4c",
-          500: "#e50914",
-          600: "#b80710",
-          700: "#8a050c",
-          800: "#5c0408",
-          900: "#2e0204",
-        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -67,7 +54,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["var(--font-family)", "Inter", "ui-sans-serif", "system-ui", "sans-serif"],
         display: ["'Bebas Neue'", "Inter", "sans-serif"],
       },
       keyframes: {

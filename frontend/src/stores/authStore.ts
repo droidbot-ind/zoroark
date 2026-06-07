@@ -23,7 +23,7 @@ export const useAuthStore = create<AuthState>()(
       logout: () => set({ user: null, token: null, isAuthenticated: false }),
     }),
     {
-      name: "movie-night-auth",
+      name: "zoroark-auth",
       partialize: (state) => ({ user: state.user, token: state.token }),
       onRehydrateStorage: () => (state) => {
         if (state?.token && state?.user) state.isAuthenticated = true;

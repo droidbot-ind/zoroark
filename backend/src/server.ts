@@ -5,7 +5,7 @@ import { prisma } from "./config/prisma";
 const app = createApp();
 
 const server = app.listen(env.PORT, () => {
-  console.log(`Movie Night API running on http://localhost:${env.PORT}`);
+  console.log(`Zoroark API running on http://localhost:${env.PORT}`);
   console.log(`Environment: ${env.NODE_ENV}`);
 });
 
