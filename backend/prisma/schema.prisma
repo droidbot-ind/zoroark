@@ -1,0 +1,65 @@
+// Prisma schema for Movie Night
+// docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  username      String   @unique
+  passwordHash  String
+  displayName   String?
+  avatarUrl     String?
+  bio           String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  watchlist     WatchlistItem[]
+  reviews       Review[]
+
+  @@index([email])
+  @@index([username])
+}
+
+model WatchlistItem {
+  id          String   @id @default(cuid())
+  userId      String
+  tmdbId      Int
+  mediaType   String   @default("movie") // "movie" | "tv"
+  title       String
+  posterPath  String?
+  releaseDate String?
+  voteAverage Float?
+  addedAt     DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, tmdbId, mediaType])
+  @@index([userId])
+}
+
+model Review {
+  id          String   @id @default(cuid())
+  userId      String
+  tmdbId      Int
+  mediaType   String   @default("movie")
+  title       String
+  posterPath  String?
+  rating      Int      // 1..10
+  content     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, tmdbId, mediaType])
+  @@index([userId])
+  @@index([tmdbId])
+}
