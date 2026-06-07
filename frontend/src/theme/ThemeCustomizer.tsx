@@ -1,7 +1,15 @@
-import { Paintbrush, Type, Maximize } from "lucide-react";
+import { useState } from "react";
+import { Paintbrush, Type, Maximize, Pipette } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Dialog,
   DialogContent,
@@ -10,7 +18,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useTheme } from "@/theme/ThemeContext";
-import { FONT_OPTIONS, SPACING_SCALES } from "@/theme/types";
+import { FONT_OPTIONS, FONT_STACKS } from "@/theme/types";
 import type { FontFamily, SpacingMode } from "@/theme/types";
 import { hslToHex, hexToHsl } from "@/theme/storage";
 import { cn } from "@/lib/cn";
@@ -21,38 +29,26 @@ const SPACING_OPTIONS: { value: SpacingMode; label: string }[] = [
   { value: "relaxed", label: "Relaxed" },
 ];
 
-const PRESETS = [
-  { label: "Amber", hue: 38 },
-  { label: "Netflix", hue: 357 },
-  { label: "Blue", hue: 221 },
-  { label: "Green", hue: 142 },
-  { label: "Rose", hue: 346 },
-  { label: "Purple", hue: 272 },
+const PALETTE = [
+  { label: "Amber", hue: 38, sat: 92, light: 50 },
+  { label: "Gold", hue: 45, sat: 100, light: 50 },
+  { label: "Orange", hue: 24, sat: 95, light: 50 },
+  { label: "Red", hue: 0, sat: 85, light: 55 },
+  { label: "Rose", hue: 346, sat: 80, light: 55 },
+  { label: "Pink", hue: 330, sat: 80, light: 55 },
+  { label: "Purple", hue: 272, sat: 70, light: 55 },
+  { label: "Violet", hue: 260, sat: 65, light: 55 },
+  { label: "Indigo", hue: 240, sat: 60, light: 55 },
+  { label: "Blue", hue: 221, sat: 83, light: 53 },
+  { label: "Sky", hue: 200, sat: 85, light: 50 },
+  { label: "Cyan", hue: 185, sat: 80, light: 45 },
+  { label: "Teal", hue: 170, sat: 75, light: 40 },
+  { label: "Emerald", hue: 160, sat: 70, light: 42 },
+  { label: "Green", hue: 142, sat: 65, light: 45 },
+  { label: "Lime", hue: 90, sat: 75, light: 48 },
+  { label: "Neutral", hue: 0, sat: 0, light: 40 },
+  { label: "Slate", hue: 215, sat: 20, light: 40 },
 ];
-
-const ChipGroup: React.FC<{
-  options: { value: string; label: string }[];
-  selected: string;
-  onChange: (v: any) => void;
-}> = ({ options, selected, onChange }) => (
-  <div className="flex flex-wrap gap-1.5">
-    {options.map((o) => (
-      <button
-        key={o.value}
-        type="button"
-        onClick={() => onChange(o.value)}
-        className={cn(
-          "px-3 py-1.5 text-xs font-medium rounded-md border transition-colors",
-          selected === o.value
-            ? "border-primary bg-primary text-primary-foreground"
-            : "border-border bg-card text-muted-foreground hover:text-foreground",
-        )}
-      >
-        {o.label}
-      </button>
-    ))}
-  </div>
-);
 
 export const ThemeCustomizer: React.FC = () => {
   const {
@@ -66,6 +62,8 @@ export const ThemeCustomizer: React.FC = () => {
     setSpacing,
     reset,
   } = useTheme();
+
+  const [showCustomPicker, setShowCustomPicker] = useState(false);
 
   const currentHex = hslToHex(
     theme.primaryHue,
@@ -99,53 +97,59 @@ export const ThemeCustomizer: React.FC = () => {
               <Paintbrush className="h-3.5 w-3.5" /> Colour
             </h3>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
+              <span
+                className="inline-block h-9 w-9 shrink-0 rounded-lg border-2 border-border"
+                style={{
+                  backgroundColor: `hsl(${theme.primaryHue}, ${theme.primarySaturation}%, ${theme.primaryLightness}%)`,
+                }}
+              />
+              <div className="flex-1 text-xs text-muted-foreground">
+                <span className="font-medium text-foreground">Current</span>
+                <br />
+                {currentHex}
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowCustomPicker(!showCustomPicker)}
+              >
+                <Pipette className="mr-1 h-3.5 w-3.5" />
+                Custom
+              </Button>
+            </div>
+
+            {showCustomPicker ? (
               <input
                 type="color"
                 value={currentHex}
                 onChange={(e) => handleColorPicker(e.target.value)}
-                className="h-10 w-10 cursor-pointer rounded border border-border bg-transparent p-0.5"
+                className="h-10 w-full cursor-pointer rounded-md border border-border bg-transparent p-0.5"
               />
-              <div className="flex-1 space-y-1">
-                <div className="flex items-center justify-between">
-                  <Label className="text-xs text-muted-foreground">
-                    Preview
-                  </Label>
-                  <span className="text-xs tabular-nums text-muted-foreground">
-                    {currentHex}
-                  </span>
-                </div>
-                <div
-                  className="h-2 w-full rounded-full"
-                  style={{
-                    backgroundColor: `hsl(${theme.primaryHue}, ${theme.primarySaturation}%, ${theme.primaryLightness}%)`,
-                  }}
-                />
-              </div>
-            </div>
+            ) : null}
 
-            <Label className="text-xs font-medium">Presets</Label>
-            <div className="flex flex-wrap gap-1.5">
-              {PRESETS.map((p) => (
+            <Label className="text-xs font-medium">Swatches</Label>
+            <div className="grid grid-cols-6 gap-1.5 sm:grid-cols-9">
+              {PALETTE.map((p) => (
                 <button
                   key={p.hue}
                   type="button"
-                  onClick={() => setPrimaryHue(p.hue)}
+                  onClick={() => {
+                    setPrimaryHue(p.hue);
+                    setPrimarySaturation(p.sat);
+                    setPrimaryLightness(p.light);
+                  }}
                   className={cn(
-                    "flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-xs transition-colors",
+                    "h-7 w-full rounded-md border transition-transform hover:scale-110",
                     theme.primaryHue === p.hue
-                      ? "border-primary bg-primary/10"
-                      : "border-border hover:border-muted-foreground/40",
+                      ? "border-foreground ring-1 ring-foreground"
+                      : "border-border",
                   )}
-                >
-                  <span
-                    className="h-3 w-3 rounded-full"
-                    style={{
-                      backgroundColor: `hsl(${p.hue}, ${theme.primarySaturation}%, ${theme.primaryLightness}%)`,
-                    }}
-                  />
-                  {p.label}
-                </button>
+                  style={{
+                    backgroundColor: `hsl(${p.hue}, ${p.sat}%, ${p.light}%)`,
+                  }}
+                  title={p.label}
+                />
               ))}
             </div>
           </section>
@@ -159,11 +163,23 @@ export const ThemeCustomizer: React.FC = () => {
             </h3>
 
             <Label className="text-xs font-medium">Font</Label>
-            <ChipGroup
-              options={FONT_OPTIONS}
-              selected={theme.fontFamily}
-              onChange={setFontFamily}
-            />
+            <Select
+              value={theme.fontFamily}
+              onValueChange={(v) => setFontFamily(v as FontFamily)}
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {FONT_OPTIONS.map((f) => (
+                  <SelectItem key={f.value} value={f.value}>
+                    <span style={{ fontFamily: FONT_STACKS[f.value] }}>
+                      {f.label}
+                    </span>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
 
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
@@ -180,10 +196,6 @@ export const ThemeCustomizer: React.FC = () => {
                 onValueChange={([v]) => setFontScale(v)}
               />
             </div>
-
-            <p className="rounded-md bg-secondary/50 px-3 py-2 text-xs leading-relaxed text-muted-foreground">
-              The quick brown fox jumps over the lazy dog.
-            </p>
           </section>
 
           <hr className="border-border/60" />
@@ -195,11 +207,23 @@ export const ThemeCustomizer: React.FC = () => {
             </h3>
 
             <Label className="text-xs font-medium">Spacing</Label>
-            <ChipGroup
-              options={SPACING_OPTIONS}
-              selected={theme.spacing}
-              onChange={setSpacing}
-            />
+            <div className="flex flex-wrap gap-1.5">
+              {SPACING_OPTIONS.map((o) => (
+                <button
+                  key={o.value}
+                  type="button"
+                  onClick={() => setSpacing(o.value)}
+                  className={cn(
+                    "px-3 py-1.5 text-xs font-medium rounded-md border transition-colors",
+                    theme.spacing === o.value
+                      ? "border-primary bg-primary text-primary-foreground"
+                      : "border-border bg-card text-muted-foreground hover:text-foreground",
+                  )}
+                >
+                  {o.label}
+                </button>
+              ))}
+            </div>
 
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">

@@ -10,6 +10,7 @@ export interface ThemeSettings {
 
 export type FontFamily =
   | "inter"
+  | "montserrat"
   | "outfit"
   | "dm-sans"
   | "space-grotesk"
@@ -29,6 +30,7 @@ export interface FontOption {
 
 export const FONT_OPTIONS: FontOption[] = [
   { value: "inter", label: "Inter", family: "Inter", weights: "300..800" },
+  { value: "montserrat", label: "Montserrat", family: "Montserrat", weights: "300..900" },
   { value: "outfit", label: "Outfit", family: "Outfit", weights: "300..700" },
   { value: "dm-sans", label: "DM Sans", family: "DM+Sans", weights: "300..700" },
   { value: "space-grotesk", label: "Space Grotesk", family: "Space+Grotesk", weights: "300..700" },
@@ -40,6 +42,7 @@ export const FONT_OPTIONS: FontOption[] = [
 
 export const FONT_STACKS: Record<FontFamily, string> = {
   inter: '"Inter", ui-sans-serif, system-ui, sans-serif',
+  montserrat: '"Montserrat", ui-sans-serif, system-ui, sans-serif',
   outfit: '"Outfit", ui-sans-serif, system-ui, sans-serif',
   "dm-sans": '"DM Sans", ui-sans-serif, system-ui, sans-serif',
   "space-grotesk": '"Space Grotesk", ui-sans-serif, system-ui, sans-serif',
