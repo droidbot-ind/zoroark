@@ -99,6 +99,3 @@ npm run dev                # http://localhost:5173
 
 Data provided by [TMDB](https://www.themoviedb.org). This project was built with **opencode** (deepseek-v4-flash-free).
 
-## License
-
-MIT
