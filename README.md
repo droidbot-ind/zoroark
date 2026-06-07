@@ -1,10 +1,10 @@
 # Zoroark
 
-A production-quality movie explorer and watchlist platform inspired by **Netflix** + **Letterboxd**.
+A Pokémon-themed movie & TV discovery platform inspired by **Letterboxd** — built with React, Express, Prisma, and TMDB.
 
 ## Stack
 
-**Frontend:** React 18, TypeScript, Vite, TailwindCSS, shadcn/ui, React Router v6, TanStack Query v5, Zustand, Vitest, React Testing Library
+**Frontend:** React 18, TypeScript, Vite, TailwindCSS, shadcn/ui, React Router v6, TanStack Query v5, Zustand, motion/react (React Bits), Vitest, React Testing Library
 
 **Backend:** Node.js, Express, TypeScript, Prisma ORM, PostgreSQL, JWT, Zod, Vitest
 
@@ -13,9 +13,10 @@ A production-quality movie explorer and watchlist platform inspired by **Netflix
 ## Monorepo Layout
 
 ```
-movie-night/
+zoroark/
 ├── backend/     # Express + Prisma API
-└── frontend/    # Vite + React SPA
+├── frontend/    # Vite + React SPA
+└── misc/        # Deploy guide & dev guidelines (gitignored)
 ```
 
 ## Quick Start
@@ -29,7 +30,7 @@ movie-night/
 ### 2. Start PostgreSQL (Docker)
 
 ```bash
-docker compose up -d        # starts Postgres 16 on localhost:5433
+docker compose up -d        # starts Postgres on localhost:5433
 docker compose ps           # verify "healthy"
 ```
 
@@ -79,16 +80,26 @@ npm run dev                # http://localhost:5173
 
 ## Features
 
-- JWT auth (register / login / persisted session)
-- Movie discovery: trending, popular, top-rated, upcoming
+- JWT auth (register / login via email or username / persisted session)
+- Movie & TV discovery: trending, popular, top-rated, upcoming
 - Multi-search (movies, TV, people)
-- Movie detail page (cast, similar, videos, providers)
+- Media detail page (cast, trailer dialog, similar, recommendations, streaming providers)
+- Person page (bio, filmography, known-for grid with rating colours)
 - Watchlist add / remove / list
 - Personal ratings & written reviews
-- User profile with stats
+- User profile with stats & edit dialog
 - Pagination on every list
 - Loading skeletons, error boundaries, toasts
-- Mobile-first responsive dark theme
+- Dark / light mode toggle (persisted)
+- **Theme customiser** — colour picker (18 swatches + custom), font selector (10 Google Fonts with live preview), font scale, spacing mode, border radius
+- Pokéball favicon, ShinyText logo animation (React Bits)
+- Mobile-first responsive design
+
+## Credits
+
+This project was built collaboratively with **Claude (Anthropic)**, an AI assistant, which wrote the majority of the code across multiple sessions — from initial scaffold through theming, deployment config, and feature implementation.
+
+**Pokémon is © Nintendo / The Pokémon Company.** This is a fan project for educational purposes only.
 
 ## License
 
