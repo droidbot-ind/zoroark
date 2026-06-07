@@ -1,5 +1,5 @@
 import { api, unwrap } from "@/lib/api";
-import type { ApiResponse, MovieDetail, TmdbMedia, TmdbPage, Genre } from "@/types/api";
+import type { ApiResponse, MovieDetail, TmdbMedia, TmdbPage, Genre, PersonDetail } from "@/types/api";
 
 const get = async <T>(url: string, params?: Record<string, unknown>): Promise<T> => {
   const { data } = await api.get<ApiResponse<T>>(url, { params });
@@ -22,7 +22,7 @@ export const moviesApi = {
   topRatedTv: (page = 1) => get<TmdbPage<TmdbMedia>>("/tmdb/tv/top-rated", { page }),
   movieDetail: (id: number) => get<MovieDetail>(`/tmdb/movies/${id}`),
   tvDetail: (id: number) => get<MovieDetail>(`/tmdb/tv/${id}`),
-  personDetail: (id: number) => get<unknown>(`/tmdb/person/${id}`),
+  personDetail: (id: number) => get<PersonDetail>(`/tmdb/person/${id}`),
   searchMulti: (query: string, page = 1) =>
     get<TmdbPage<TmdbMedia>>("/tmdb/search", { query, page }),
 };

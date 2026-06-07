@@ -88,6 +88,13 @@ export const useTvDetail = (id: number, enabled = true) =>
     enabled: enabled && Number.isFinite(id) && id > 0,
   });
 
+export const usePersonDetail = (id: number, enabled = true) =>
+  useQuery({
+    queryKey: [...movieKeys.all, "person", id] as const,
+    queryFn: () => moviesApi.personDetail(id),
+    enabled: enabled && Number.isFinite(id) && id > 0,
+  });
+
 export const useMovieGenres = () =>
   useQuery({
     queryKey: movieKeys.genres(),

@@ -149,3 +149,49 @@ export interface ReviewAggregate {
   averageRating: number;
   count: number;
 }
+
+export interface PersonCredit {
+  id: number;
+  title?: string;
+  name?: string;
+  character?: string;
+  job?: string;
+  department?: string;
+  poster_path: string | null;
+  backdrop_path: string | null;
+  release_date?: string;
+  first_air_date?: string;
+  vote_average: number;
+  vote_count: number;
+  popularity: number;
+  genre_ids: number[];
+  credit_id: string;
+  media_type?: string;
+  episode_count?: number;
+}
+
+export interface PersonDetail {
+  id: number;
+  name: string;
+  also_known_as: string[];
+  biography: string;
+  birthday: string | null;
+  deathday: string | null;
+  place_of_birth: string | null;
+  profile_path: string | null;
+  known_for_department: string;
+  gender: number;
+  popularity: number;
+  adult: boolean;
+  imdb_id: string | null;
+  homepage: string | null;
+  movie_credits?: { cast: PersonCredit[]; crew: PersonCredit[] };
+  tv_credits?: { cast: PersonCredit[]; crew: PersonCredit[] };
+  images?: { profiles: { file_path: string; width: number; height: number }[] };
+  external_ids?: {
+    instagram_id: string | null;
+    twitter_id: string | null;
+    facebook_id: string | null;
+    wikidata_id: string | null;
+  };
+}
