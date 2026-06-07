@@ -7,7 +7,7 @@ import {
   type ReactNode,
 } from "react";
 import type { ThemeSettings, FontFamily, SpacingMode } from "./types";
-import { FONT_STACKS, SPACING_SCALES } from "./types";
+import { FONT_OPTIONS, FONT_STACKS, SPACING_SCALES } from "./types";
 import { DEFAULT_THEME } from "./defaults";
 import { loadTheme, saveTheme } from "./storage";
 
@@ -25,17 +25,36 @@ interface ThemeContextValue {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
+const loadedFonts = new Set<string>();
+
+const loadGoogleFont = (family: string) => {
+  if (!family || loadedFonts.has(family)) return;
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = `https://fonts.googleapis.com/css2?family=${family}:wght@300;400;500;600;700;800&display=swap`;
+  document.head.appendChild(link);
+  loadedFonts.add(family);
+};
+
 const applyTheme = (theme: ThemeSettings) => {
   const root = document.documentElement;
-  root.style.setProperty("--primary", `${theme.primaryHue} ${theme.primarySaturation}% ${theme.primaryLightness}%`);
-  root.style.setProperty("--ring", `${theme.primaryHue} ${theme.primarySaturation}% ${theme.primaryLightness}%`);
+  root.style.setProperty(
+    "--primary",
+    `${theme.primaryHue} ${theme.primarySaturation}% ${theme.primaryLightness}%`,
+  );
+  root.style.setProperty(
+    "--ring",
+    `${theme.primaryHue} ${theme.primarySaturation}% ${theme.primaryLightness}%`,
+  );
   root.style.setProperty("--font-family", FONT_STACKS[theme.fontFamily]);
   root.style.setProperty("--font-scale", String(theme.fontScale));
   root.style.setProperty("--radius", `${theme.radius}rem`);
   root.style.setProperty("--spacing-scale", String(SPACING_SCALES[theme.spacing]));
 };
 
-export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [theme, setTheme] = useState<ThemeSettings>(loadTheme);
 
   useEffect(() => {
@@ -43,8 +62,15 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     saveTheme(theme);
   }, [theme]);
 
+  // Load Google Font on mount / font change
+  useEffect(() => {
+    const opt = FONT_OPTIONS.find((f) => f.value === theme.fontFamily);
+    if (opt && opt.family) loadGoogleFont(opt.family);
+  }, [theme.fontFamily]);
+
   const patch = useCallback(
-    (partial: Partial<ThemeSettings>) => setTheme((t) => ({ ...t, ...partial })),
+    (partial: Partial<ThemeSettings>) =>
+      setTheme((t) => ({ ...t, ...partial })),
     [],
   );
 
