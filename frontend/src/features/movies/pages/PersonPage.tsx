@@ -65,12 +65,12 @@ export const PersonPage: React.FC = () => {
   }
 
   const allCredits: PersonCredit[] = [
-    ...(person.movie_credits?.cast ?? []),
-    ...(person.tv_credits?.cast ?? []),
+    ...(person.movie_credits?.cast ?? []).map((c) => ({ ...c, media_type: "movie" as const })),
+    ...(person.tv_credits?.cast ?? []).map((c) => ({ ...c, media_type: "tv" as const })),
   ];
   const crewCredits: PersonCredit[] = [
-    ...(person.movie_credits?.crew ?? []),
-    ...(person.tv_credits?.crew ?? []),
+    ...(person.movie_credits?.crew ?? []).map((c) => ({ ...c, media_type: "movie" as const })),
+    ...(person.tv_credits?.crew ?? []).map((c) => ({ ...c, media_type: "tv" as const })),
   ];
 
   const sortedByRating = [...allCredits].sort(
