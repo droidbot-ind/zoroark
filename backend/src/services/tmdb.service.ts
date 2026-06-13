@@ -80,13 +80,6 @@ export const tmdbService = {
     return data;
   },
 
-  async searchMovie(query: string, page = 1) {
-    const { data } = await tmdb.get<TmdbList<unknown>>(`/search/movie`, {
-      params: { query, page, include_adult: false },
-    });
-    return data;
-  },
-
   // Detail
   async movieDetail(id: number) {
     const { data } = await tmdb.get<unknown>(`/movie/${id}`, {

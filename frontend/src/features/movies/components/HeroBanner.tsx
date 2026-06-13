@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Play, Info, Star } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { TrailerDialog } from "@/features/movies/components/TrailerDialog";

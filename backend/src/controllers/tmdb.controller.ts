@@ -40,10 +40,6 @@ export const tmdbController = {
     const query = String(req.query.query ?? "");
     ok(res, await tmdbService.searchMulti(query, getPage(req)));
   },
-  async searchMovie(req: Request, res: Response) {
-    const query = String(req.query.query ?? "");
-    ok(res, await tmdbService.searchMovie(query, getPage(req)));
-  },
   async movieDetail(req: Request, res: Response) {
     ok(res, await tmdbService.movieDetail(Number(req.params.id)));
   },

@@ -38,7 +38,7 @@ export const reviewController = {
 
   async remove(req: Request, res: Response) {
     if (!req.user) throw Unauthorized();
-    await reviewService.delete(req.params.id, req.user.userId);
+    await reviewService.delete(String(req.params.id), req.user.userId);
     ok(res, { removed: true });
   },
 };

@@ -10,7 +10,6 @@ export const movieKeys = {
   upcoming: (p: number) => [...movieKeys.all, "upcoming", p] as const,
   nowPlaying: (p: number) => [...movieKeys.all, "now-playing", p] as const,
   popularTv: (p: number) => [...movieKeys.all, "tv-popular", p] as const,
-  topRatedTv: (p: number) => [...movieKeys.all, "tv-top-rated", p] as const,
   discover: (p: number, params: Record<string, unknown>) =>
     [...movieKeys.all, "discover", p, params] as const,
   movieDetail: (id: number) => [...movieKeys.all, "movie", id] as const,
@@ -57,13 +56,6 @@ export const usePopularTv = (page = 1) =>
   useQuery({
     queryKey: movieKeys.popularTv(page),
     queryFn: () => moviesApi.popularTv(page),
-    placeholderData: keepPreviousData,
-  });
-
-export const useTopRatedTv = (page = 1) =>
-  useQuery({
-    queryKey: movieKeys.topRatedTv(page),
-    queryFn: () => moviesApi.topRatedTv(page),
     placeholderData: keepPreviousData,
   });
 

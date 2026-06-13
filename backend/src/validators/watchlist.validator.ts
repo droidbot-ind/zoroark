@@ -11,12 +11,4 @@ export const watchlistAddSchema = z.object({
   voteAverage: z.coerce.number().min(0).max(10).nullable().optional(),
 });
 
-export const watchlistParamsSchema = z.object({
-  tmdbId: z.coerce.number().int().positive(),
-});
-
-export const watchlistQuerySchema = z.object({
-  mediaType: mediaTypeSchema.optional(),
-});
-
 export type WatchlistAddInput = z.infer<typeof watchlistAddSchema>;

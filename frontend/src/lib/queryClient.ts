@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import { QueryClient, QueryCache, MutationCache } from "@tanstack/react-query";
 
 const logError = (scope: string) => (error: unknown) => {
@@ -15,9 +16,7 @@ export const queryClient = new QueryClient({
       gcTime: 1000 * 60 * 30,
       refetchOnWindowFocus: false,
       retry: (failureCount, error) => {
-        // don't retry 4xx
-        // @ts-expect-error axios error has response
-        const status = error?.response?.status as number | undefined;
+        const status = error instanceof AxiosError ? error.response?.status : undefined;
         if (status && status >= 400 && status < 500) return false;
         return failureCount < 2;
       },

@@ -11,8 +11,8 @@ import {
 } from "@/features/movies/pages/ListPages";
 import { MediaDetailPage } from "@/features/movies/pages/MediaDetailPage";
 import { SearchPage } from "@/features/search/pages/SearchPage";
-import { LoginPage } from "@/features/auth/components/LoginPage";
-import { RegisterPage } from "@/features/auth/components/RegisterPage";
+import { LoginPage } from "@/features/auth/pages/LoginPage";
+import { RegisterPage } from "@/features/auth/pages/RegisterPage";
 import { WatchlistPage } from "@/features/watchlist/pages/WatchlistPage";
 import { ProfilePage } from "@/features/profile/pages/ProfilePage";
 import { PersonPage } from "@/features/movies/pages/PersonPage";

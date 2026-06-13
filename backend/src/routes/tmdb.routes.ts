@@ -21,6 +21,5 @@ router.get("/tv/:id", asyncHandler(tmdbController.tvDetail));
 router.get("/person/:id", asyncHandler(tmdbController.personDetail));
 
 router.get("/search", asyncHandler(tmdbController.search));
-router.get("/search/movie", asyncHandler(tmdbController.searchMovie));
 
 export default router;

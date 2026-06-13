@@ -5,10 +5,10 @@ Express + TypeScript + Prisma + PostgreSQL API for Zoroark.
 ## Setup
 
 ```bash
+cp .env.example .env   # fill in JWT_SECRET and TMDB_API_KEY
 npm install
-# fill in JWT_SECRET and TMDB_API_KEY in .env
 npx prisma migrate dev --name init
-npm run dev       # http://localhost:4000
+npm run dev            # http://localhost:4000
 ```
 
 ## Scripts

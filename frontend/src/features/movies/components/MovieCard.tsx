@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { tmdbImage } from "@/lib/tmdb";

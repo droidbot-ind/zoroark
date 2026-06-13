@@ -10,12 +10,4 @@ export const reviewUpsertSchema = z.object({
   content: z.string().min(1).max(5000),
 });
 
-export const reviewParamsSchema = z.object({
-  id: z.string().min(1),
-});
-
-export const reviewTmdbParamsSchema = z.object({
-  tmdbId: z.coerce.number().int().positive(),
-});
-
 export type ReviewUpsertInput = z.infer<typeof reviewUpsertSchema>;
