@@ -53,7 +53,7 @@ export const FONT_STACKS: Record<FontFamily, string> = {
 };
 
 export const SPACING_SCALES: Record<SpacingMode, number> = {
-  compact: 0.85,
+  compact: 0.7,
   normal: 1,
-  relaxed: 1.15,
+  relaxed: 1.35,
 };

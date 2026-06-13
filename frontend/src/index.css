@@ -70,6 +70,10 @@
     --ring: 38 92% 50%;
   }
 
+  html {
+    font-size: calc(16px * var(--font-scale, 1));
+  }
+
   html,
   body,
   #root {
