@@ -33,8 +33,8 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ media }) => {
   });
 
   const detail = detailQuery.data as MovieDetail | undefined;
-  const trailer = detail?.videos?.results.find(
-    (v) => v.site === "YouTube" && v.type === "Trailer"
+  const trailers = (detail?.videos?.results ?? []).filter(
+    (v) => v.site === "YouTube" && (v.type === "Trailer" || v.type === "Teaser")
   );
 
   return (
@@ -79,12 +79,12 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ media }) => {
             </p>
           ) : null}
           <div className="flex flex-wrap gap-2 pt-1">
-            {trailer ? (
+            {trailers.length > 0 ? (
               <Button size="lg" onClick={() => setTrailerOpen(true)}>
                 <Play className="mr-1 h-5 w-5 fill-current" /> Play trailer
               </Button>
             ) : null}
-            <Button asChild size="lg" variant={trailer ? "secondary" : "default"}>
+            <Button asChild size="lg" variant={trailers.length > 0 ? "secondary" : "default"}>
               <Link to={`/${type}/${media.id}`}>
                 <Info className="mr-1 h-5 w-5" /> View details
               </Link>
@@ -93,12 +93,11 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ media }) => {
         </motion.div>
       </div>
 
-      {trailer ? (
+      {trailers.length > 0 ? (
         <TrailerDialog
           open={trailerOpen}
           onOpenChange={setTrailerOpen}
-          videoKey={trailer.key}
-          videoName={trailer.name}
+          videos={trailers}
           mediaTitle={title}
         />
       ) : null}

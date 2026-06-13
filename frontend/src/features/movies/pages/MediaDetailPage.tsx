@@ -76,8 +76,8 @@ export const MediaDetailPage: React.FC<Props> = ({ mediaType }) => {
   const runtime =
     data.runtime ??
     (Array.isArray(data.episode_run_time) ? data.episode_run_time[0] : undefined);
-  const trailer = data.videos?.results.find(
-    (v) => v.site === "YouTube" && v.type === "Trailer"
+  const trailers = (data.videos?.results ?? []).filter(
+    (v) => v.site === "YouTube" && (v.type === "Trailer" || v.type === "Teaser")
   );
   const tone = getRatingTone(data.vote_average ?? 0);
   const director = data.credits?.crew.find((c) => c.job === "Director");
@@ -165,7 +165,7 @@ export const MediaDetailPage: React.FC<Props> = ({ mediaType }) => {
               ) : null}
 
               <div className="flex flex-wrap gap-2 pt-2">
-                {trailer ? (
+                {trailers.length > 0 ? (
                   <Button onClick={() => setTrailerOpen(true)}>
                     <Play className="mr-1 h-4 w-4 fill-current" /> Watch trailer
                   </Button>
@@ -271,12 +271,11 @@ export const MediaDetailPage: React.FC<Props> = ({ mediaType }) => {
         ) : null}
       </div>
 
-      {trailer ? (
+      {trailers.length > 0 ? (
         <TrailerDialog
           open={trailerOpen}
           onOpenChange={setTrailerOpen}
-          videoKey={trailer.key}
-          videoName={trailer.name}
+          videos={trailers}
           mediaTitle={title}
         />
       ) : null}
