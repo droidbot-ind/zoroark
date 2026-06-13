@@ -7,6 +7,7 @@ import {
   Tv,
   ExternalLink,
   ChevronLeft,
+  Film,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -241,25 +242,32 @@ export const PersonPage: React.FC = () => {
           <h2 className="font-display text-2xl tracking-wide sm:text-3xl">
             Filmography
           </h2>
-          <div className="space-y-1">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {sortedByDate.map((c) => {
               const date = c.release_date ?? c.first_air_date;
-              const isTv = c.media_type === "tv" || !!c.episode_count;
+              const isTv = c.media_type === "tv";
               return (
                 <Link
                   key={c.credit_id}
                   to={`/${isTv ? "tv" : "movie"}/${c.id}`}
-                  className="flex items-center gap-3 rounded-lg px-3 py-2 transition-colors hover:bg-secondary/60"
+                  className="flex items-center gap-3 rounded-lg border border-border/40 p-2 transition-colors hover:bg-secondary/60"
                 >
-                  <div className="flex h-9 w-6 shrink-0 items-center justify-center rounded bg-secondary text-muted-foreground">
-                    {isTv ? (
-                      <Tv className="h-3.5 w-3.5" />
+                  <div className="h-16 w-11 shrink-0 overflow-hidden rounded bg-secondary">
+                    {c.poster_path ? (
+                      <img
+                        src={tmdbImage(c.poster_path, "w92")}
+                        alt={c.title ?? c.name ?? ""}
+                        loading="lazy"
+                        className="h-full w-full object-cover"
+                      />
                     ) : (
-                      <Clapperboard className="h-3.5 w-3.5" />
+                      <div className="flex h-full items-center justify-center text-muted-foreground">
+                        <Film className="h-4 w-4" />
+                      </div>
                     )}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium">
+                    <p className="truncate text-sm font-medium leading-tight">
                       {c.title ?? c.name}
                     </p>
                     <p className="truncate text-xs text-muted-foreground">
@@ -271,21 +279,21 @@ export const PersonPage: React.FC = () => {
                             ? "TV Series"
                             : "Film"}
                     </p>
-                  </div>
-                  <div className="flex shrink-0 items-center gap-2 text-xs text-muted-foreground">
-                    {c.vote_average > 0 ? (
-                      <span
-                        className={cn(
-                          "tabular-nums",
-                          RATING_TEXT[getRatingTone(c.vote_average)],
-                        )}
-                      >
-                        {c.vote_average.toFixed(1)}
-                      </span>
-                    ) : null}
-                    {date ? (
-                      <span className="tabular-nums">{formatYear(date)}</span>
-                    ) : null}
+                    <div className="mt-0.5 flex items-center gap-2 text-xs text-muted-foreground">
+                      {c.vote_average > 0 ? (
+                        <span
+                          className={cn(
+                            "tabular-nums font-medium",
+                            RATING_TEXT[getRatingTone(c.vote_average)],
+                          )}
+                        >
+                          {c.vote_average.toFixed(1)}
+                        </span>
+                      ) : null}
+                      {date ? (
+                        <span className="tabular-nums">{formatYear(date)}</span>
+                      ) : null}
+                    </div>
                   </div>
                 </Link>
               );
