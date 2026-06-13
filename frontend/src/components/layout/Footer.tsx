@@ -74,9 +74,7 @@ export const Footer: React.FC = () => (
     <div className="border-t border-border/40">
       <div className="container py-4 text-xs text-muted-foreground flex flex-wrap items-center justify-between gap-2">
         <span>© {new Date().getFullYear()} Zoroark. All rights reserved.</span>
-        <span>
-          This product uses the TMDB API but is not endorsed or certified by TMDB.
-        </span>
+        <span>Zoroark is not associated with TMDB.</span>
       </div>
     </div>
   </footer>

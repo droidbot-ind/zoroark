@@ -33,6 +33,11 @@
     --ring: 38 92% 50%;
 
     --radius: 0.75rem;
+
+    --spacing-scale: 1;
+    --container-padding: calc(1rem * var(--spacing-scale));
+    --section-gap: calc(1.5rem * var(--spacing-scale));
+    --card-gap: calc(1rem * var(--spacing-scale));
   }
 
   html:not(.dark) {
@@ -116,11 +121,10 @@
   }
 
   .scroll-row {
-    @apply flex gap-3 overflow-x-auto pb-4 snap-x snap-mandatory;
+    @apply flex overflow-x-auto snap-x snap-mandatory;
+    gap: calc(0.75rem * var(--spacing-scale));
+    padding-bottom: calc(1rem * var(--spacing-scale));
     scrollbar-width: thin;
-  }
-  .scroll-row::-webkit-scrollbar {
-    height: 6px;
   }
 
   .gradient-overlay {
@@ -140,4 +144,9 @@
       hsl(var(--background) / 0.2) 100%
     );
   }
+}
+
+.container {
+  padding-left: var(--container-padding, 1rem);
+  padding-right: var(--container-padding, 1rem);
 }

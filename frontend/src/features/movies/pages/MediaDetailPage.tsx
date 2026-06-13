@@ -97,7 +97,7 @@ export const MediaDetailPage: React.FC<Props> = ({ mediaType }) => {
           ) : (
             <div className="absolute inset-0 bg-gradient-to-br from-secondary to-background" />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-background/5" />
         </div>
 
         <div className="container relative -mt-40 sm:-mt-56">
