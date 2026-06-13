@@ -56,4 +56,4 @@ npm run dev
 
 ## Credits
 
-Data provided by [TMDB](https://www.themoviedb.org).
+Data provided by TMDB. This project was built with opencode (deepseek-v4-flash-free).
