@@ -15,8 +15,7 @@ A Pokémon-themed movie & TV discovery platform inspired by **Letterboxd** — b
 ```
 zoroark/
 ├── backend/     # Express + Prisma API
-├── frontend/    # Vite + React SPA
-└── misc/        # Deploy guide & dev guidelines (gitignored)
+└── frontend/    # Vite + React SPA
 ```
 
 ## Quick Start
